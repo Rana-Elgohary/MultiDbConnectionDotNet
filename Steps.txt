@@ -1,0 +1,18 @@
+Steps To Make MultiDB When Adding a Domian:
+	- for each db make dbcontext
+		==> mainContext --> will have the domian table to save the connection strings on it
+			This Will have a migration and update DB
+			(Add-Migration InitialMainMigration -Context MainDbContext -OutputDir Migrations/MainDb)
+			(Update-Database -Context DbContext_Multi)
+		==> otherContext --> will have other models (tables)
+			This Will only have a migration
+			(Add-Migration InitialMainMigration -Context OtherDbContext -OutputDir Migrations/MainDb)
+	- in appsettings ==> default connectionString (mainContext DB)
+	- Also in the program.cs
+	- Make the endpoint that calles the services to make the row in domain table and also create the Db and migrate it
+	- This service will be injected in the program.cs
+
+Steps To Call Data From a Specific DB According To Domain:
+	- Middleware to get the domian name from header and get the connection string from the DB
+	- service to get optionsBuilder (Connection)
+	- Controller
